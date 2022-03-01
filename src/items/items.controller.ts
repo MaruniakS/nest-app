@@ -6,7 +6,9 @@ import {
   Body,
   Patch,
   Delete,
+  Query,
 } from '@nestjs/common';
+import { PaginationQueryDto } from 'src/common/dto/pagination-query.dto';
 import { CreateItemDto } from './dto/create-item.dto';
 import { UpdateItemDto } from './dto/update-item.dto';
 import { ItemsService } from './items.service';
@@ -15,8 +17,8 @@ import { ItemsService } from './items.service';
 export class ItemsController {
   constructor(private readonly itemsService: ItemsService) {}
   @Get()
-  findAll() {
-    return this.itemsService.findAll();
+  findAll(@Query() paginationQuery: PaginationQueryDto) {
+    return this.itemsService.findAll(paginationQuery);
   }
 
   @Get(':id')
